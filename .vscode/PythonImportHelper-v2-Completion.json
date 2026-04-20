@@ -1,0 +1,221 @@
+[
+    {
+        "label": "create_engine",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "text",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "text",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "sessionmaker",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "Session",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "result",
+        "importPath": "unittest",
+        "description": "unittest",
+        "isExtraImport": true,
+        "detail": "unittest",
+        "documentation": {}
+    },
+    {
+        "label": "request",
+        "importPath": "urllib",
+        "description": "urllib",
+        "isExtraImport": true,
+        "detail": "urllib",
+        "documentation": {}
+    },
+    {
+        "label": "FastAPI",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Depends",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Request",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Form",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Jinja2Templates",
+        "importPath": "fastapi.templating",
+        "description": "fastapi.templating",
+        "isExtraImport": true,
+        "detail": "fastapi.templating",
+        "documentation": {}
+    },
+    {
+        "label": "HTMLResponse",
+        "importPath": "fastapi.responses",
+        "description": "fastapi.responses",
+        "isExtraImport": true,
+        "detail": "fastapi.responses",
+        "documentation": {}
+    },
+    {
+        "label": "RedirectResponse",
+        "importPath": "fastapi.responses",
+        "description": "fastapi.responses",
+        "isExtraImport": true,
+        "detail": "fastapi.responses",
+        "documentation": {}
+    },
+    {
+        "label": "get_db",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "get_db",
+        "kind": 2,
+        "importPath": "database",
+        "description": "database",
+        "peekOfCode": "def get_db():\n    db = SessionLocal()\n    try:\n        yield db\n    finally:\n        db.close()",
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "DB_URL",
+        "kind": 5,
+        "importPath": "database",
+        "description": "database",
+        "peekOfCode": "DB_URL = \"postgresql://scott:tiger@172.16.8.101/scott_db\"\n# DB 엔진 만들기\nengine = create_engine(DB_URL)\n# 세션 만들기\nSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)\n# 글 목록 기능 (POST)\nCREATE_POST_TABLE = \"\"\"\n        CREATE TABLE IF NOT EXISTS post (\n            num SERIAL PRIMARY KEY,\n            writer VARCHAR(50) NOT NULL,",
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "engine",
+        "kind": 5,
+        "importPath": "database",
+        "description": "database",
+        "peekOfCode": "engine = create_engine(DB_URL)\n# 세션 만들기\nSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)\n# 글 목록 기능 (POST)\nCREATE_POST_TABLE = \"\"\"\n        CREATE TABLE IF NOT EXISTS post (\n            num SERIAL PRIMARY KEY,\n            writer VARCHAR(50) NOT NULL,\n            title VARCHAR(100) ,\n            content TEXT,",
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "SessionLocal",
+        "kind": 5,
+        "importPath": "database",
+        "description": "database",
+        "peekOfCode": "SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)\n# 글 목록 기능 (POST)\nCREATE_POST_TABLE = \"\"\"\n        CREATE TABLE IF NOT EXISTS post (\n            num SERIAL PRIMARY KEY,\n            writer VARCHAR(50) NOT NULL,\n            title VARCHAR(100) ,\n            content TEXT,\n            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL \n        );",
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "CREATE_POST_TABLE",
+        "kind": 5,
+        "importPath": "database",
+        "description": "database",
+        "peekOfCode": "CREATE_POST_TABLE = \"\"\"\n        CREATE TABLE IF NOT EXISTS post (\n            num SERIAL PRIMARY KEY,\n            writer VARCHAR(50) NOT NULL,\n            title VARCHAR(100) ,\n            content TEXT,\n            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL \n        );\n\"\"\"\nwith engine.connect() as connection:",
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "index",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def index(request: Request):\n    return templates.TemplateResponse(\n        request=request,\n        name=\"index.html\",\n        context={\"forturnToday\": \"동쪽으로가면 귀인을 만나요.\"})\n# get 방식 /post 요청 처리\n@app.get(\"/post\", response_class=HTMLResponse)\ndef getPosts(request: Request, db:Session = Depends(get_db)):\n    # DB 에서 글목록을 가져오기 위한 sql 문 준비\n    query = text(\"\"\"",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "getPosts",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def getPosts(request: Request, db:Session = Depends(get_db)):\n    # DB 에서 글목록을 가져오기 위한 sql 문 준비\n    query = text(\"\"\"\n        SELECT num, writer, title, content, created_at\n        FROM post\n        ORDER BY num DESC\n    \"\"\")\n    # 글 목록을 얻어와서\n    result = db.execute(query).fetchall()\n    print('글목록:  ', result)",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "postNewForm",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def postNewForm(request: Request):\n    return templates.TemplateResponse(\n        request=request,\n        name=\"post/new-form.html\"\n    )\n@app.post(\"/post/new\", response_class=HTMLResponse)\ndef postNew(request: Request, writer: str = Form(...), title: str = Form(...), content: str = Form(...), db: Session = Depends(get_db)):\n    query = text(\"\"\"\n                 INSERT INTO post(writer, title, content)\n                 VALUES (:writer, :title, :content)",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "postNew",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def postNew(request: Request, writer: str = Form(...), title: str = Form(...), content: str = Form(...), db: Session = Depends(get_db)):\n    query = text(\"\"\"\n                 INSERT INTO post(writer, title, content)\n                 VALUES (:writer, :title, :content)\n    \"\"\")\n    db.execute(query, {\"writer\": writer, \"title\": title, \"content\": content})\n    db.commit()\n    return RedirectResponse(url=\"/post\", status_code=303)",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "app = FastAPI()\n# jinja2 템플릿 객체 생성 (templates 파일들이 어디에 있는지 알려야함)\ntemplates = Jinja2Templates(directory=\"templates\")\n@app.get(\"/\", response_class=HTMLResponse)\ndef index(request: Request):\n    return templates.TemplateResponse(\n        request=request,\n        name=\"index.html\",\n        context={\"forturnToday\": \"동쪽으로가면 귀인을 만나요.\"})\n# get 방식 /post 요청 처리",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "templates",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "templates = Jinja2Templates(directory=\"templates\")\n@app.get(\"/\", response_class=HTMLResponse)\ndef index(request: Request):\n    return templates.TemplateResponse(\n        request=request,\n        name=\"index.html\",\n        context={\"forturnToday\": \"동쪽으로가면 귀인을 만나요.\"})\n# get 방식 /post 요청 처리\n@app.get(\"/post\", response_class=HTMLResponse)\ndef getPosts(request: Request, db:Session = Depends(get_db)):",
+        "detail": "main",
+        "documentation": {}
+    }
+]
