@@ -66,7 +66,7 @@ def postNew(request: Request, writer: str = Form(...), title: str = Form(...), c
 
     return RedirectResponse(url="/post", status_code=303)
 
-@app.delete("/post/{num}")
+@app.delete("/post/delete/{num}")
 def deletePost(num: int, db: Session = Depends(get_db)):
     query = text("""
                  DELETE FROM post
