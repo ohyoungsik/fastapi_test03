@@ -2,6 +2,7 @@
 venv/
 __pycache__/
 *.pyc
+.vscode/
 
 # 운영 체제 별로 생길 수 있는 파일
 .DS_Store

@@ -27,6 +27,7 @@
                 <th>작성자</th>
                 <th>내용</th>
                 <th>작성일</th>
+                <th>삭제할?</th>
             </tr>
         </thead>
         <tbody>
@@ -37,6 +38,9 @@
                 <td>{{ post.writer }}</td>
                 <td>{{ post.content }}</td>
                 <td>{{ post.created_at }}</td>
+                <td>
+                    <button onclick="deletePost({{ post.num }})">삭제</button>
+                </td>
             </tr>
             {% endfor %}
         </tbody>
@@ -44,4 +48,22 @@
     <br>
     <a href="/">홈으로 돌아가기</a>
 </body>
+    <script>
+    function deletePost(num) {
+        if (!confirm("정말 삭제하시겠습니까?")) return;
+
+        fetch(`/post/${num}`, {
+            method: "DELETE"
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+            location.reload(); // 삭제 후 새로고침
+        })
+        .catch(error => {
+            console.error("에러:", error);
+            alert("삭제 실패");
+        });
+    }
+    </script>
 </html>

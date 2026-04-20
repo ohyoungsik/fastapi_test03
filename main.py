@@ -65,3 +65,15 @@ def postNew(request: Request, writer: str = Form(...), title: str = Form(...), c
     db.commit()
 
     return RedirectResponse(url="/post", status_code=303)
+
+@app.delete("/post/{num}")
+def deletePost(num: int, db: Session = Depends(get_db)):
+    query = text("""
+                 DELETE FROM post
+                 WHERE num = :num
+    """)
+    
+    db.execute(query, {"num": num})
+    db.commit()
+
+    return {"message": "글이 삭제되었습니다."}
