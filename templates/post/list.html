@@ -34,7 +34,7 @@
             {% for post in posts %}
             <tr>
                 <td>{{ post.num }}</td>
-                <td>{{ post.title }}</td>
+                <td><a href="/post/{{ post.num }}">{{ post.title }}</a></td>
                 <td>{{ post.writer }}</td>
                 <td>{{ post.content }}</td>
                 <td>{{ post.created_at }}</td>

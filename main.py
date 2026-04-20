@@ -77,3 +77,18 @@ def deletePost(num: int, db: Session = Depends(get_db)):
     db.commit()
 
     return {"message": "글이 삭제되었습니다."}
+
+# 글 상세보기 기능
+@app.get("/post/{num}", response_class=HTMLResponse)
+def getPost(request: Request, num: int, db: Session = Depends(get_db)):
+    query = text("""
+        SELECT num, writer, title, content, created_at
+        FROM post
+        WHERE num = :num
+    """)
+    result = db.execute(query, {"num": num}).fetchone()
+    return templates.TemplateResponse(
+        request=request,
+        name="post/detail.html",
+        context={"post": result}
+    )
