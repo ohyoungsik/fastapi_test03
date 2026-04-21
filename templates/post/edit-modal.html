@@ -1,0 +1,90 @@
+<!-- 수정 모달 (Edit Modal) -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content text-dark">
+            <div class="modal-header bg-warning">
+                <h5 class="modal-title" id="editModalLabel">글 수정하기</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-start">
+                <form id="editForm">
+                    <input type="hidden" id="edit-num">
+                    <div class="mb-3">
+                        <label for="edit-title" class="form-label">제목</label>
+                        <input type="text" class="form-control" id="edit-title" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit-content" class="form-label">내용</label>
+                        <textarea class="form-control" id="edit-content" rows="10" required></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                <button type="button" class="btn btn-primary" onclick="submitEdit()">수정 완료</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // 모달을 열고 데이터를 채우는 함수
+function openEditModal(button) {
+    // 1. 버튼에 저장된 data 속성들을 가져옵니다.
+    const num = button.getAttribute('data-num');
+    const title = button.getAttribute('data-title');
+    const content = button.getAttribute('data-content');
+
+    // 2. 모달 내 input 요소들에 값을 채웁니다.
+    const numEl = document.getElementById("edit-num");
+    const titleEl = document.getElementById("edit-title");
+    const contentEl = document.getElementById("edit-content");
+
+    if (numEl && titleEl && contentEl) {
+        numEl.value = num;
+        titleEl.value = title;
+        contentEl.value = content;
+
+        // 3. 부트스트랩 모달 띄우기
+        const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('editModal'));
+        modal.show();
+    } else {
+        console.error("모달 요소를 찾을 수 없습니다. edit-modal.html 파일이 include 되었는지 확인하세요.");
+    }
+}
+
+    // 수정 데이터 전송 함수
+    async function submitEdit() {
+        const num = document.getElementById('edit-num').value;
+        const title = document.getElementById('edit-title').value;
+        const content = document.getElementById('edit-content').value;
+
+        if (!title.trim() || !content.trim()) {
+            alert("제목과 내용을 입력해주세요.");
+            return;
+        }
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('content', content);
+
+        try {
+            const response = await fetch(`/post/${num}`, {
+                method: 'PATCH',
+                body: formData
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                alert(result.message);
+                location.reload(); // 성공 시 새로고침
+            } else {
+                alert('수정 실패');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('서버와 통신 중 오류가 발생했습니다.');
+        }
+    }
+</script>

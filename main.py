@@ -92,3 +92,15 @@ def getPost(request: Request, num: int, db: Session = Depends(get_db)):
         name="post/detail.html",
         context={"post": result}
     )
+    
+# 글 수정기능
+@app.patch("/post/{num}")
+def updatePost(num: int, title: str = Form(...), content: str = Form(...), db: Session = Depends(get_db)):
+    query = text("""
+        UPDATE post
+        SET title = :title, content = :content
+        WHERE num = :num
+    """)
+    db.execute(query, {"num": num, "title": title, "content": content})
+    db.commit()
+    return {"message": "글이 수정되었습니다."}
